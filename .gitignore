@@ -1,0 +1,24 @@
+# Bağımlılıklar (Kesinlikle git'e atılmamalı, çok yer kaplar)
+node_modules/
+
+# Derleme ve build çıktıları
+dist/
+build/
+
+# Astro geçici ve önbellek dosyaları
+.astro/
+
+# Log dosyaları
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Ortam değişkenleri ve gizli anahtarlar (Güvenlik için önemli)
+.env
+.env.*
+!.env.example
+
+# İşletim sistemine ait gereksiz kalıntılar
+.DS_Store
+Thumbs.db

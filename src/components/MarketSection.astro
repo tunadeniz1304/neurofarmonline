@@ -1,0 +1,70 @@
+---
+const markets = [
+  { segment: 'Precision Agriculture', value2024: 8.5, value2030: 19.2, cagr: '~14.5%', color: 'bg-nf-accent' },
+  { segment: 'Edge AI Hardware', value2024: 4.1, value2030: 24.7, cagr: '~35%', color: 'bg-nf-gold' },
+  { segment: 'Neuromorphic Computing', value2024: 0.5, value2030: 9.8, cagr: '~62%', color: 'bg-nf-lime' },
+];
+
+const drivers = [
+  'EU Green Deal mandates requiring measurable reductions in agricultural water, fertilizer, and energy use',
+  'Rising demand for food security solutions in climate-stressed, infrastructure-poor regions',
+  'Rapid cost reduction in neuromorphic and low-power edge AI hardware',
+  'Growing institutional interest in deep-tech AgriTech as a strategic priority',
+];
+---
+
+<section id="market" class="py-20 md:py-28 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16 reveal">
+      <span class="text-nf-accent font-mono text-sm font-medium tracking-wider uppercase">Opportunity</span>
+      <h2 class="section-heading mt-3">A Converging Market</h2>
+      <p class="section-subheading mx-auto mt-4">
+        Three high-growth markets driven by independent macro tailwinds: sustainable farming, edge AI, and neuromorphic computing.
+      </p>
+    </div>
+
+    <!-- Market bars -->
+    <div class="max-w-3xl mx-auto space-y-8 mb-16">
+      {markets.map((market, i) => (
+        <div class="reveal" style={`transition-delay: ${i * 150}ms`}>
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-semibold text-nf-text">{market.segment}</span>
+            <span class="font-mono text-sm text-gray-500">CAGR {market.cagr}</span>
+          </div>
+          <div class="relative h-12 bg-gray-100 rounded-lg overflow-hidden">
+            <!-- 2024 bar -->
+            <div
+              class={`absolute inset-y-0 left-0 ${market.color} opacity-30 rounded-lg transition-all duration-1000`}
+              style={`width: ${(market.value2024 / 25) * 100}%`}
+            ></div>
+            <!-- 2030 bar -->
+            <div
+              class={`absolute inset-y-0 left-0 ${market.color} rounded-lg transition-all duration-1000`}
+              style={`width: ${(market.value2030 / 25) * 100}%`}
+            ></div>
+            <!-- Labels -->
+            <div class="absolute inset-0 flex items-center justify-between px-4">
+              <span class="text-white font-mono font-bold text-sm z-10">${market.value2024}B (2024)</span>
+              <span class="text-white font-mono font-bold text-sm z-10">${market.value2030}B (2030)</span>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Key drivers -->
+    <div class="reveal max-w-3xl mx-auto">
+      <h3 class="text-lg font-bold text-nf-text mb-4">Key Market Drivers</h3>
+      <div class="grid sm:grid-cols-2 gap-3">
+        {drivers.map((driver) => (
+          <div class="flex items-start gap-3 p-3 rounded-lg bg-nf-neutral">
+            <svg class="w-5 h-5 text-nf-accent mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <span class="text-sm text-gray-700">{driver}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

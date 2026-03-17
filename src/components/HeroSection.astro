@@ -1,0 +1,62 @@
+---
+import HeroAnimation from './HeroAnimation.astro';
+---
+
+<section id="hero" class="hero-bg relative min-h-screen flex flex-col items-center justify-center px-4 py-20">
+  <!-- Floating background particles -->
+  <div class="absolute inset-0 overflow-hidden pointer-events-none">
+    {Array.from({ length: 15 }).map((_, i) => (
+      <div
+        class="hero-particle"
+        style={`left: ${Math.random() * 100}%; top: ${Math.random() * 100}%; animation-delay: ${Math.random() * 6}s; animation-duration: ${4 + Math.random() * 4}s;`}
+      />
+    ))}
+  </div>
+
+  <!-- Hero Text -->
+  <div class="relative z-10 text-center mb-8 md:mb-12">
+    <h1 class="hero-text-enter text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight tracking-tight">
+      NEUROFARM
+    </h1>
+    <p class="hero-text-enter hero-text-enter-delay text-lg sm:text-xl md:text-2xl text-nf-lime font-medium mt-4 italic">
+      The Offline Brain for Agriculture
+    </p>
+    <p class="hero-text-enter hero-text-enter-delay-2 text-sm md:text-base text-gray-300 mt-4 max-w-xl mx-auto">
+      Neuromorphic edge AI processors at the crop level — real-time decisions, near-zero energy, fully offline.
+    </p>
+  </div>
+
+  <!-- Animation -->
+  <div class="relative z-10 w-full max-w-4xl mx-auto">
+    <HeroAnimation />
+  </div>
+
+  <!-- CTA -->
+  <div class="hero-text-enter hero-text-enter-delay-2 relative z-10 mt-8 flex flex-col sm:flex-row gap-4">
+    <a href="#solution" class="btn-primary">
+      Discover Our Technology
+      <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+      </svg>
+    </a>
+    <a href="#contact" class="btn-outline border-white/30 text-white hover:bg-white/10 hover:text-white">
+      Get in Touch
+    </a>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce opacity-50">
+    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+    </svg>
+  </div>
+</section>
+
+<style>
+  @import '../styles/hero-animation.css';
+</style>
+
+<script>
+  import { initHeroCanvas } from '../scripts/hero-particles';
+  initHeroCanvas();
+</script>

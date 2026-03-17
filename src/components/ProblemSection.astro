@@ -1,0 +1,51 @@
+---
+const problems = [
+  {
+    icon: `<svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>`,
+    title: 'High Energy Consumption',
+    description: 'Constantly transmitting gigabytes of sensor data to remote servers demands massive, continuous energy output — contradicting sustainability goals.',
+  },
+  {
+    icon: `<svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>`,
+    title: 'Severe Latency',
+    description: 'Round-trip latency between field sensors and cloud servers makes real-time micro-climate management impossible. Crop stress escalates during the wait.',
+  },
+  {
+    icon: `<svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18.364 5.636a9 9 0 010 12.728m0 0l-2.829-2.829m2.829 2.829L21 21M15.536 8.464a5 5 0 010 7.072m0 0l-2.829-2.829m-4.243 2.829a5 5 0 01-1.414-3.536m0 0a5 5 0 011.414-3.536m-1.414 3.536H3" /></svg>`,
+    title: 'Connectivity Dependency',
+    description: 'Rural and remote agricultural zones — where precision farming is most needed — frequently suffer from poor or no internet connectivity.',
+  },
+];
+---
+
+<section id="problem" class="py-20 md:py-28 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16 reveal">
+      <span class="text-nf-accent font-mono text-sm font-medium tracking-wider uppercase">The Challenge</span>
+      <h2 class="section-heading mt-3">Agriculture Has a Cloud Problem</h2>
+      <p class="section-subheading mx-auto mt-4">
+        The dominant paradigm of cloud-dependent precision agriculture introduces critical systemic vulnerabilities.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8 lg:gap-12">
+      {problems.map((problem, i) => (
+        <div class="reveal group" style={`transition-delay: ${i * 150}ms`}>
+          <div class="p-8 rounded-2xl border border-gray-100 hover:border-red-200 hover:shadow-lg transition-all duration-300 h-full">
+            <div class="text-red-400 mb-5 group-hover:text-red-500 transition-colors">
+              <Fragment set:html={problem.icon} />
+            </div>
+            <h3 class="text-xl font-bold text-nf-text mb-3">{problem.title}</h3>
+            <p class="text-gray-600 leading-relaxed">{problem.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="reveal mt-12 text-center">
+      <p class="text-gray-500 italic max-w-2xl mx-auto">
+        These are structural limitations of a paradigm built for urban, high-bandwidth environments — applied to rural, low-infrastructure contexts.
+      </p>
+    </div>
+  </div>
+</section>

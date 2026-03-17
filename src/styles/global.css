@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-sans text-nf-text bg-white antialiased;
+  }
+
+  ::selection {
+    @apply bg-nf-accent/30;
+  }
+}
+
+@layer components {
+  .section-heading {
+    @apply text-3xl md:text-4xl lg:text-5xl font-bold text-nf-primary;
+  }
+
+  .section-subheading {
+    @apply text-lg md:text-xl text-gray-600 max-w-2xl;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center px-6 py-3 bg-nf-primary text-white font-semibold rounded-lg
+           hover:bg-nf-secondary transition-colors duration-300;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center px-6 py-3 border-2 border-nf-primary text-nf-primary font-semibold rounded-lg
+           hover:bg-nf-primary hover:text-white transition-colors duration-300;
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

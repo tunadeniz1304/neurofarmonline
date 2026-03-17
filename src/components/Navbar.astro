@@ -1,0 +1,83 @@
+---
+const links = [
+  { label: 'Problem', href: '#problem' },
+  { label: 'Solution', href: '#solution' },
+  { label: 'Technology', href: '#technology' },
+  { label: 'Market', href: '#market' },
+  { label: 'Roadmap', href: '#roadmap' },
+  { label: 'Team', href: '#team' },
+];
+---
+
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <!-- Logo -->
+      <a href="#hero" class="flex items-center gap-2 group">
+        <div class="w-8 h-8 bg-nf-primary rounded-md flex items-center justify-center group-hover:bg-nf-secondary transition-colors">
+          <span class="text-nf-lime font-bold text-sm">N</span>
+        </div>
+        <span class="text-white font-bold text-lg tracking-tight">NeuroFarm</span>
+      </a>
+
+      <!-- Desktop Links -->
+      <div class="hidden md:flex items-center gap-6">
+        {links.map(({ label, href }) => (
+          <a href={href} class="nav-link text-sm text-white/70 hover:text-white transition-colors">
+            {label}
+          </a>
+        ))}
+        <a href="#contact" class="ml-2 px-4 py-2 bg-nf-primary text-white text-sm font-medium rounded-lg hover:bg-nf-secondary transition-colors">
+          Contact
+        </a>
+      </div>
+
+      <!-- Mobile menu button -->
+      <button id="mobile-menu-btn" class="md:hidden text-white p-2" aria-label="Toggle menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden pb-4">
+      {links.map(({ label, href }) => (
+        <a href={href} class="block py-2 text-white/70 hover:text-white transition-colors mobile-nav-link">
+          {label}
+        </a>
+      ))}
+      <a href="#contact" class="block py-2 text-nf-lime font-medium mobile-nav-link">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<script>
+  const navbar = document.getElementById('navbar')!;
+  const mobileBtn = document.getElementById('mobile-menu-btn')!;
+  const mobileMenu = document.getElementById('mobile-menu')!;
+
+  // Scroll behavior: transparent at top, solid when scrolled
+  function updateNav() {
+    if (window.scrollY > 50) {
+      navbar.classList.add('bg-nf-dark/95', 'backdrop-blur-md', 'shadow-lg');
+    } else {
+      navbar.classList.remove('bg-nf-dark/95', 'backdrop-blur-md', 'shadow-lg');
+    }
+  }
+
+  window.addEventListener('scroll', updateNav, { passive: true });
+  updateNav();
+
+  // Mobile toggle
+  mobileBtn.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
+  });
+
+  // Close mobile menu on link click
+  document.querySelectorAll('.mobile-nav-link').forEach((link) => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.add('hidden');
+    });
+  });
+</script>

@@ -1,0 +1,97 @@
+---
+const layers = [
+  {
+    step: '01',
+    title: 'Sensing Layer',
+    subtitle: 'Multimodal Sensor Array',
+    description: 'Abiotic (soil, temperature, pH, humidity) + vision sensors for real-time environmental capture.',
+    color: 'nf-accent',
+    icon: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>`,
+  },
+  {
+    step: '02',
+    title: 'Processing Layer',
+    subtitle: 'Neuromorphic SNN Chip',
+    description: 'BrainChip Akida-class architecture; event-driven, spike-based computation mimicking biological neurons.',
+    color: 'nf-gold',
+    icon: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" /></svg>`,
+  },
+  {
+    step: '03',
+    title: 'Actuation Layer',
+    subtitle: 'Autonomous Control System',
+    description: 'Triggers irrigation, micro-climate adjustment, or agronomist alerts without cloud round-trip.',
+    color: 'nf-lime',
+    icon: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>`,
+  },
+  {
+    step: '04',
+    title: 'Network Layer',
+    subtitle: 'Mesh / LoRa (Optional)',
+    description: 'Peer-to-peer node communication for field-wide coordination — no internet required.',
+    color: 'nf-secondary',
+    icon: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.14 0M1.394 9.393c5.857-5.858 15.355-5.858 21.213 0" /></svg>`,
+  },
+];
+---
+
+<section id="technology" class="py-20 md:py-28 bg-nf-neutral">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16 reveal">
+      <span class="text-nf-accent font-mono text-sm font-medium tracking-wider uppercase">Architecture</span>
+      <h2 class="section-heading mt-3">How It Works</h2>
+      <p class="section-subheading mx-auto mt-4">
+        NeuroFarm nodes operate as autonomous, closed-loop systems across four integrated layers.
+      </p>
+    </div>
+
+    <div class="relative">
+      <!-- Connecting line (desktop) -->
+      <div class="hidden lg:block absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-nf-accent via-nf-gold to-nf-lime opacity-20 -translate-y-1/2"></div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {layers.map((layer, i) => (
+          <div class="reveal" style={`transition-delay: ${i * 150}ms`}>
+            <div class="relative p-6 rounded-2xl bg-white border border-gray-100 hover:shadow-xl transition-all duration-300 h-full">
+              <!-- Step number -->
+              <div class={`font-mono text-xs font-bold tracking-widest text-${layer.color} mb-4`}>
+                STEP {layer.step}
+              </div>
+
+              <!-- Icon -->
+              <div class={`text-${layer.color} mb-4`}>
+                <Fragment set:html={layer.icon} />
+              </div>
+
+              <h3 class="text-lg font-bold text-nf-text mb-1">{layer.title}</h3>
+              <p class={`text-sm font-medium text-${layer.color} mb-3`}>{layer.subtitle}</p>
+              <p class="text-gray-600 text-sm leading-relaxed">{layer.description}</p>
+
+              <!-- Connector dot -->
+              <div class={`hidden lg:block absolute -bottom-3 left-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-${layer.color} opacity-20`}></div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Why Neuromorphic callout -->
+    <div class="reveal mt-16 p-8 rounded-2xl bg-nf-dark text-white">
+      <h3 class="text-xl font-bold mb-4 text-nf-lime">Why Neuromorphic? Why Now?</h3>
+      <div class="grid md:grid-cols-3 gap-6 text-sm text-gray-300">
+        <div>
+          <div class="text-white font-semibold mb-1">Orders-of-magnitude lower energy</div>
+          <p>Versus conventional neural networks, SNNs process sparse spike events instead of dense matrix multiplications.</p>
+        </div>
+        <div>
+          <div class="text-white font-semibold mb-1">Native temporal processing</div>
+          <p>Detects sudden soil pH shifts or temperature spikes in real time — perfectly suited for sensor data streams.</p>
+        </div>
+        <div>
+          <div class="text-white font-semibold mb-1">Milliwatt power budgets</div>
+          <p>Chips like Intel Loihi 2 and BrainChip Akida enable years of battery or solar-powered operation per node.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

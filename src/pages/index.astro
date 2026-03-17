@@ -1,0 +1,38 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import HeroSection from '../components/HeroSection.astro';
+import ProblemSection from '../components/ProblemSection.astro';
+import SolutionMetrics from '../components/SolutionMetrics.astro';
+import TechArchitecture from '../components/TechArchitecture.astro';
+import MarketSection from '../components/MarketSection.astro';
+import TractionSection from '../components/TractionSection.astro';
+import RoadmapTimeline from '../components/RoadmapTimeline.astro';
+import TeamSection from '../components/TeamSection.astro';
+import ContactSection from '../components/ContactSection.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout>
+  <Navbar />
+  <main>
+    <HeroSection />
+    <ProblemSection />
+    <SolutionMetrics />
+    <TechArchitecture />
+    <MarketSection />
+    <TractionSection />
+    <RoadmapTimeline />
+    <TeamSection />
+    <ContactSection />
+  </main>
+  <Footer />
+</Layout>
+
+<script>
+  import { initScrollAnimations } from '../scripts/scroll-animations';
+  import { initCounterAnimations } from '../scripts/counter-animation';
+
+  initScrollAnimations();
+  initCounterAnimations();
+</script>
