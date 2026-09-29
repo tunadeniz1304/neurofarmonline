@@ -1,0 +1,214 @@
+---
+import SectionHeading from '../ui/SectionHeading.astro';
+import { roadmap, vision } from '../../data/site';
+---
+
+<section class="section" id="roadmap" aria-labelledby="roadmap-title">
+  <div class="wrap stack" style="gap: 64px">
+    <div class="reveal">
+      <SectionHeading eyebrow="04 — Traction & roadmap" id="roadmap-title" maxWidth="900px">
+        Phase 0 is done. Now we’re moving <em>onto real silicon.</em>
+      </SectionHeading>
+    </div>
+
+    <ol class="timeline reveal">
+      {
+        roadmap.map((m, i) => (
+          <li>
+            <div class="rail" aria-hidden="true">
+              <span class={`dot ${m.state}`} />
+              {i < roadmap.length - 1 && <span class={`seg ${m.state}`} />}
+            </div>
+            <span class:list={['when', { here: m.state === 'now' }]}>{m.when}</span>
+            <h3>
+              {m.title}
+              {m.badge && <span class={`badge ${m.state}`}>{m.badge}</span>}
+            </h3>
+            <p>{m.body}</p>
+          </li>
+        ))
+      }
+    </ol>
+
+    <div class="vision reveal">
+      <span class="mono label">Long-term vision</span>
+      <p>
+        {
+          vision.map((stage, i) => (
+            <>
+              {i > 0 && <span class="arrow" aria-hidden="true">→</span>}
+              {i === vision.length - 1 ? <em>{stage}</em> : <span>{stage}</span>}
+            </>
+          ))
+        }
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .timeline {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 24px;
+  }
+  .timeline li {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .rail {
+    display: flex;
+    align-items: center;
+    min-height: 16px;
+  }
+  .dot {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+  }
+  .dot.done {
+    background: var(--accent);
+  }
+  .dot.now {
+    border: 2px solid var(--accent);
+    background: var(--ground);
+  }
+  .dot.later {
+    border: 2px solid var(--border);
+  }
+  .seg {
+    flex-grow: 1;
+    height: 2px;
+  }
+  .seg.done {
+    background: var(--accent);
+  }
+  .seg.now,
+  .seg.later {
+    height: 0;
+    border-top: 2px dashed var(--line-2);
+  }
+  .seg.now {
+    border-top-color: var(--border);
+  }
+  .when {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .when.here {
+    color: var(--accent);
+  }
+  h3 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    font-size: 22px;
+    font-weight: 600;
+  }
+  .badge {
+    padding: 3px 8px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .badge.done {
+    background: var(--accent);
+    color: var(--ground);
+  }
+  .badge.now {
+    padding: 2px 8px;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+  }
+  .timeline p {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+
+  .vision {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px 40px;
+    padding: clamp(24px, 3vw, 40px);
+    border: 1px solid var(--line);
+    background: var(--panel);
+  }
+  .vision p {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 22px;
+    font-family: var(--serif);
+    font-size: clamp(28px, 3vw, 40px);
+    line-height: 1.15;
+  }
+  .vision .arrow {
+    color: var(--border);
+  }
+  .vision em {
+    color: var(--accent);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .dot.now {
+      animation: ping 2.4s ease-in-out infinite;
+    }
+    @keyframes ping {
+      0%,
+      100% {
+        box-shadow: 0 0 0 0 rgb(198 243 107 / 0.5);
+      }
+      50% {
+        box-shadow: 0 0 0 8px rgb(198 243 107 / 0);
+      }
+    }
+  }
+
+  @media (max-width: 960px) {
+    .timeline {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0;
+    }
+    .timeline li {
+      display: grid;
+      grid-template-columns: 28px minmax(0, 1fr);
+      column-gap: 14px;
+      row-gap: 8px;
+    }
+    .timeline li > :not(.rail) {
+      grid-column: 2;
+    }
+    .timeline p {
+      padding-bottom: 28px;
+    }
+    .rail {
+      grid-row: 1 / span 3;
+      flex-direction: column;
+      padding-top: 4px;
+    }
+    .dot {
+      width: 14px;
+      height: 14px;
+    }
+    .seg {
+      width: 2px;
+      height: auto;
+    }
+    .seg.now,
+    .seg.later {
+      width: 0;
+      border-top: 0;
+      border-left: 2px dashed var(--line-2);
+    }
+    .seg.now {
+      border-left-color: var(--border);
+    }
+  }
+</style>

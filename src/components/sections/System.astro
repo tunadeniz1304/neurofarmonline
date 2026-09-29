@@ -1,0 +1,222 @@
+---
+import SectionHeading from '../ui/SectionHeading.astro';
+import { actuators, edgeNode, networkProfile, pipeline, scenarios, sensors } from '../../data/site';
+---
+
+<section class="section" id="system" aria-labelledby="system-title">
+  <div class="wrap stack" style="gap: 72px">
+    <div class="split reveal">
+      <SectionHeading eyebrow="02 — How it works" id="system-title">
+        From a scientific digital twin to a policy that fits <em>in on-chip memory.</em>
+      </SectionHeading>
+      <p class="lede">
+        Five sensors in, three actuators out, one decision every five minutes — 288 a day. The control policy is learned
+        in simulation, compressed, then converted into a spiking neural network that runs on a BrainChip Akida AKD1000
+        beside the crop.
+      </p>
+    </div>
+
+    <ol class="pipeline reveal" aria-label="Pipeline">
+      {
+        pipeline.map((p, i) => (
+          <li>
+            <span class="n" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{p.step}</h3>
+            <p>{p.body}</p>
+          </li>
+        ))
+      }
+    </ol>
+
+    <div class="panels">
+      <div class="panel reveal">
+        <p class="mono label">Network profile</p>
+        <dl class="profile">
+          {
+            networkProfile.map((s) => (
+              <div>
+                <dt>{s.label}</dt>
+                <dd>{s.value}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+      <div class="panel reveal">
+        <p class="mono label">The closed loop</p>
+        <div class="io">
+          <div>
+            <h3 class="io-h">{sensors.length} sensor inputs</h3>
+            <ul>{sensors.map((s) => <li>{s.long}</li>)}</ul>
+          </div>
+          <div>
+            <h3 class="io-h out">{actuators.length} actuator outputs</h3>
+            <ul>{actuators.map((a) => <li>{a.long}</li>)}</ul>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div>
+          <h3 class="io-h">Phase 1 edge node</h3>
+          <p class="edge">{edgeNode} No thresholds, if-else rules or PID loops in the control path.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="foot">
+      <div class="chips">
+        <span class="mono label">Trained &amp; tested under</span>
+        {scenarios.map((s) => <span class="chip">{s.label}</span>)}
+      </div>
+      <a class="text-link" href="#contact">Get the technical brief →</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .split {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(32px, 5vw, 64px);
+    align-items: end;
+  }
+
+  .pipeline {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    border-top: 1px solid var(--line-2);
+  }
+  .pipeline li {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 28px 28px 0 0;
+  }
+  .n {
+    font-family: var(--serif);
+    font-size: 44px;
+    line-height: 1;
+    color: var(--accent);
+  }
+  .pipeline h3 {
+    font-size: 22px;
+    font-weight: 600;
+  }
+  .pipeline p {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+
+  .panels {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 40px;
+  }
+  .profile {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 26px 28px;
+  }
+  .profile > div {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+    gap: 4px;
+  }
+  .profile dd {
+    font-family: var(--serif);
+    font-size: clamp(32px, 3.4vw, 48px);
+    line-height: 1.05;
+  }
+  .profile dt {
+    font-size: 15px;
+    color: var(--muted);
+  }
+  .io {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px;
+  }
+  .io-h {
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .io-h.out {
+    color: var(--amber);
+  }
+  .io ul {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 12px;
+    color: var(--text-2);
+  }
+  .edge {
+    margin-top: 8px;
+    color: var(--text-2);
+  }
+
+  .foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px 32px;
+    padding-top: 32px;
+    border-top: 1px solid var(--line);
+  }
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+  }
+  .chips .label {
+    margin-right: 6px;
+  }
+  .chip {
+    padding: 8px 14px;
+    border: 1px solid var(--line-2);
+    font-size: 15px;
+  }
+
+  @media (max-width: 960px) {
+    .split,
+    .panels {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .split {
+      align-items: start;
+    }
+    .pipeline {
+      grid-template-columns: minmax(0, 1fr);
+      border-top: 0;
+    }
+    .pipeline li {
+      display: grid;
+      grid-template-columns: 52px minmax(0, 1fr);
+      column-gap: 12px;
+      row-gap: 6px;
+      padding: 20px 0;
+      border-top: 1px solid var(--line-2);
+    }
+    .pipeline li:last-child {
+      border-bottom: 1px solid var(--line-2);
+    }
+    .n {
+      grid-row: span 2;
+      font-size: 32px;
+    }
+    .pipeline h3 {
+      font-size: 19px;
+    }
+  }
+  @media (max-width: 640px) {
+    .io {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .profile dd {
+      font-size: 32px;
+    }
+  }
+</style>

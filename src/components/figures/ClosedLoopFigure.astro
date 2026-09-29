@@ -1,0 +1,133 @@
+---
+import { scenarios } from '../../data/site';
+---
+
+<figure class="loop" aria-labelledby="loop-caption" data-closed-loop>
+  <div class="top mono">
+    <span class="label">Fig. 1 — The closed loop</span>
+    <span class="tag-illustrative">Illustrative</span>
+  </div>
+  <div class="canvas-wrap">
+    <canvas
+      role="img"
+      aria-label="Illustrative animation. Spikes from five sensors — soil moisture, air temperature and humidity, light, CO2 and soil EC — stream into a 5-32-16-3 spiking network. Every five simulated minutes one forward pass ripples through the network and updates three actuators: irrigation pump, LED intensity and nutrient dosing."
+      data-loop-canvas></canvas>
+  </div>
+  <div class="bar">
+    <div class="scenarios" role="group" aria-label="Illustrative scenario">
+      {
+        scenarios.map((s, i) => (
+          <button type="button" data-scenario={s.id} aria-pressed={i === 0 ? 'true' : 'false'}>
+            {s.label}
+          </button>
+        ))
+      }
+    </div>
+    <div class="readout">
+      <span data-loop-readout>Decision 073 / 288 · 06:05</span>
+      <button type="button" class="pause" aria-pressed="false" data-loop-pause>
+        <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true">
+          <path d="M3 2v8M9 2v8" stroke="currentColor" stroke-width="2" fill="none" data-loop-pause-icon></path>
+        </svg>
+        <span data-loop-pause-label>Pause</span>
+      </button>
+    </div>
+  </div>
+  <figcaption id="loop-caption">
+    Illustrative animation, not model output: spike timings, network activity and actuator levels are generated to
+    explain the idea, not recorded from NeuroFarm’s policy or hardware. The four scenarios are the ones the real policy
+    is trained and tested under.
+  </figcaption>
+</figure>
+
+<script>
+  import { mountClosedLoop } from '../../scripts/closed-loop';
+  document.querySelectorAll<HTMLElement>('[data-closed-loop]').forEach(mountClosedLoop);
+</script>
+
+<style>
+  .loop {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: clamp(16px, 2vw, 28px);
+    background: var(--panel);
+    border: 1px solid var(--line);
+  }
+  .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+  }
+  .canvas-wrap {
+    position: relative;
+    width: 100%;
+  }
+  canvas {
+    width: 100%;
+  }
+  .bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px 16px;
+  }
+  .scenarios {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  button {
+    min-height: 40px;
+    padding: 0 12px;
+    background: transparent;
+    border: 1px solid var(--line-2);
+    border-radius: 2px;
+    color: var(--text-2);
+    font-family: var(--sans);
+    font-size: 14px;
+    cursor: pointer;
+  }
+  button:hover {
+    border-color: var(--border);
+    color: var(--text);
+  }
+  .scenarios button[aria-pressed='true'] {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .readout {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+  .pause {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+  }
+  figcaption {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--muted);
+  }
+
+  @media (max-width: 1100px) {
+    .loop {
+      max-width: 720px;
+    }
+  }
+  @media (max-width: 640px) {
+    .bar {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

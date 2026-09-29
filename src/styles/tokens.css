@@ -1,0 +1,53 @@
+/* Design tokens — the single source for colour, type and spacing. */
+:root {
+  color-scheme: dark;
+
+  /* Ground & surfaces */
+  --ground: #0c0f0b;
+  --panel: #10140e;
+  --surface: #131811;
+  --line: #232b20;
+  --line-2: #3a4634;
+  --line-soft: #2b3527;
+  --border: #6b7663; /* ≥3:1 against --ground, used for form controls */
+
+  /* Text */
+  --text: #edf0e7;
+  --text-2: #c9d0c1;
+  --muted: #a7b09f;
+  --faint: #7f8977;
+
+  /* Signals */
+  --accent: #c6f36b; /* neural activity, primary CTA */
+  --accent-hi: #e3ffb0;
+  --amber: #f5b650; /* actuators */
+  --error: #ffb4a0;
+
+  /* Paper (light) section */
+  --paper: #f0f1e8;
+  --paper-card: #fbfbf6;
+  --paper-line: #c3c8b6;
+  --paper-rule: #d5d9ca;
+  --paper-note: #e3e6d8;
+  --ink: #12160f;
+  --ink-2: #3f4838;
+  --ink-3: #4a5344;
+  --ink-accent: #2f6b12;
+
+  /* Type */
+  --serif: 'Instrument Serif', Georgia, serif;
+  --sans: 'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+
+  /* Layout */
+  --gutter: clamp(16px, 5vw, 120px);
+  --section: clamp(72px, 10vw, 128px);
+  --header: 72px;
+  --max: 1440px;
+}
+
+@media (max-width: 520px) {
+  :root {
+    --header: 64px;
+  }
+}

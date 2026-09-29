@@ -1,35 +1,36 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Navbar from '../components/Navbar.astro';
-import HeroSection from '../components/HeroSection.astro';
-import ProblemSection from '../components/ProblemSection.astro';
-import TechArchitecture from '../components/TechArchitecture.astro';
-import ScenarioDemo from '../components/ScenarioDemo.astro';
-import ScienceSection from '../components/ScienceSection.astro';
-import MarketSection from '../components/MarketSection.astro';
-import RoadmapSection from '../components/RoadmapSection.astro';
-import TeamSection from '../components/TeamSection.astro';
-import ContactSection from '../components/ContactSection.astro';
-import Footer from '../components/Footer.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/layout/SiteHeader.astro';
+import SiteFooter from '../components/layout/SiteFooter.astro';
+import Hero from '../components/sections/Hero.astro';
+import StatusBar from '../components/sections/StatusBar.astro';
+import Problem from '../components/sections/Problem.astro';
+import System from '../components/sections/System.astro';
+import Rigour from '../components/sections/Rigour.astro';
+import Roadmap from '../components/sections/Roadmap.astro';
+import Market from '../components/sections/Market.astro';
+import Team from '../components/sections/Team.astro';
+import Contact from '../components/sections/Contact.astro';
 ---
 
-<Layout>
-  <Navbar />
+<BaseLayout>
+  <SiteHeader />
   <main id="main">
-    <HeroSection />
-    <ProblemSection />
-    <TechArchitecture />
-    <ScenarioDemo />
-    <ScienceSection />
-    <MarketSection />
-    <RoadmapSection />
-    <TeamSection />
-    <ContactSection />
+    <span id="top"></span>
+    <Hero />
+    <StatusBar />
+    <Problem />
+    <System />
+    <Rigour />
+    <Roadmap />
+    <Market />
+    <Team />
+    <Contact />
   </main>
-  <Footer />
-</Layout>
+  <SiteFooter />
+</BaseLayout>
 
 <script>
-  import { initScrollAnimations } from '../scripts/scroll-animations';
-  initScrollAnimations();
+  import { initReveal } from '../scripts/reveal';
+  initReveal();
 </script>

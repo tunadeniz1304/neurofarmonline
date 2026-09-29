@@ -1,0 +1,81 @@
+---
+import Logo from './Logo.astro';
+import { site } from '../../data/site';
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="wrap inner">
+    <div class="top">
+      <div class="brand">
+        <Logo size={24} />
+        <span class="name">{site.name}</span>
+        <span class="tag">{site.tagline}</span>
+      </div>
+      <div class="links">
+        <a href={`mailto:${site.email}`}>{site.email}</a>
+        <span>{site.location}</span>
+        <a href="#contact">Request the investor brief</a>
+      </div>
+    </div>
+    <p class="disclaimer">
+      Visuals marked “Illustrative” or “Conceptual” are schematic and do not show recorded data. NeuroFarm has not yet
+      published measured performance results. Product and organisation names are used descriptively; no partnership is
+      implied. © {year} {site.name}.
+    </p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--line);
+  }
+  .inner {
+    padding-block: 56px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+  }
+  .brand {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+  }
+  .name {
+    font-family: var(--serif);
+    font-size: 26px;
+  }
+  .tag {
+    color: var(--muted);
+    font-size: 15px;
+  }
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 28px;
+    font-size: 15px;
+  }
+  .links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+  .links span {
+    color: var(--muted);
+  }
+  .disclaimer {
+    max-width: 900px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--faint);
+  }
+</style>

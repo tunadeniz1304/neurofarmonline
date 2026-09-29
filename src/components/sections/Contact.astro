@@ -1,0 +1,215 @@
+---
+import { interestTypes, site } from '../../data/site';
+---
+
+<section class="section contact" id="contact" aria-labelledby="contact-title">
+  <div class="wrap grid">
+    <div class="stack intro">
+      <p class="eyebrow">07 — Contact</p>
+      <h2 class="h2 title" id="contact-title">Request the <em>investor brief.</em></h2>
+      <p class="lede">
+        For pre-seed and seed investors, greenhouse and vertical-farm operators interested in a pilot, and research
+        partners. We reply personally.
+      </p>
+      <dl class="details">
+        <div>
+          <dt>Email</dt>
+          <dd><a href={`mailto:${site.email}`}>{site.email}</a></dd>
+        </div>
+        <div>
+          <dt>Web</dt>
+          <dd>{site.domain}</dd>
+        </div>
+        <div>
+          <dt>Based at</dt>
+          <dd>{site.base}<br />{site.location}</dd>
+        </div>
+      </dl>
+    </div>
+
+    <form class="form" action={site.formAction} method="POST" data-contact-form data-fallback-email={site.email}>
+      <input type="hidden" name="_subject" value="NeuroFarm website enquiry" />
+      <div class="honeypot" aria-hidden="true">
+        <label for="f-gotcha">Leave this field empty</label>
+        <input id="f-gotcha" type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="f-name">Name</label>
+          <input id="f-name" name="name" type="text" autocomplete="name" required />
+        </div>
+        <div class="field">
+          <label for="f-email">Email</label>
+          <input id="f-email" name="email" type="email" autocomplete="email" required />
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="f-org">Organisation <span class="opt">(optional)</span></label>
+          <input id="f-org" name="organisation" type="text" autocomplete="organization" />
+        </div>
+        <div class="field">
+          <label for="f-interest">I’m interested as</label>
+          <select id="f-interest" name="interest_type" required>
+            {interestTypes.map((t) => <option value={t.value}>{t.label}</option>)}
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label for="f-message">Message</label>
+        <textarea id="f-message" name="message" rows="5"></textarea>
+      </div>
+      <div class="foot">
+        <p>We only use your details to reply to you.</p>
+        <button class="btn btn-primary btn-lg" type="submit">Send request <span aria-hidden="true">→</span></button>
+      </div>
+      <p class="status" role="status" aria-live="polite" data-form-status></p>
+    </form>
+  </div>
+</section>
+
+<script>
+  import { initContactForm } from '../../scripts/contact-form';
+  document.querySelectorAll<HTMLFormElement>('[data-contact-form]').forEach(initContactForm);
+</script>
+
+<style>
+  .contact {
+    background: var(--surface);
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: clamp(40px, 6vw, 80px);
+    align-items: start;
+  }
+  .intro {
+    gap: 28px;
+  }
+  .title {
+    font-size: clamp(46px, 6vw, 76px);
+    line-height: 1;
+  }
+  .title em {
+    color: var(--accent);
+  }
+  .details > div {
+    display: grid;
+    grid-template-columns: 120px minmax(0, 1fr);
+    padding: 15px 0;
+    border-top: 1px solid var(--line-2);
+  }
+  .details > div:last-child {
+    border-bottom: 1px solid var(--line-2);
+  }
+  .details dt {
+    color: var(--muted);
+  }
+  .details a {
+    font-weight: 600;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    padding: clamp(20px, 3vw, 40px);
+    background: var(--ground);
+    border: 1px solid var(--line);
+  }
+  .row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  label {
+    font-size: 15px;
+    font-weight: 500;
+  }
+  .opt {
+    color: var(--muted);
+    font-weight: 400;
+  }
+  input,
+  select,
+  textarea {
+    width: 100%;
+    min-height: 52px;
+    padding: 0 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    color: var(--text);
+    font: inherit;
+    font-size: 16px;
+  }
+  select {
+    appearance: none;
+    padding: 0 40px 0 12px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23A7B09F' stroke-width='1.6' fill='none'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+  }
+  textarea {
+    min-height: 140px;
+    padding: 14px 16px;
+    line-height: 1.5;
+    resize: vertical;
+  }
+  input:focus,
+  select:focus,
+  textarea:focus {
+    border-color: var(--accent);
+  }
+  .honeypot {
+    position: absolute;
+    left: -9999px;
+  }
+  .foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px 24px;
+  }
+  .foot p {
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .status {
+    min-height: 1.5em;
+    font-size: 15px;
+  }
+  .status[data-state='ok'] {
+    color: var(--accent);
+  }
+  .status[data-state='err'] {
+    color: var(--error);
+  }
+
+  @media (max-width: 1100px) {
+    .grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+  @media (max-width: 640px) {
+    .row,
+    .details > div {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .details > div {
+      gap: 2px;
+    }
+    .details dt {
+      font-size: 13px;
+    }
+    .foot .btn {
+      width: 100%;
+    }
+  }
+</style>

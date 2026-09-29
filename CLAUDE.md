@@ -5,12 +5,13 @@ Marketing / investor site for NeuroFarm (neuromorphic edge AI for agriculture), 
 ## Git rules
 
 - **Never add `Co-Authored-By: Claude ...` (or any Claude/AI co-author/attribution line) to commit messages or PR descriptions.** Commits are authored by the repo owner only.
-- Work on feature branches (e.g. `enhanceUI`); `master` is production.
+- Work on feature branches (e.g. `design2`); `master` is production.
 
 ## Stack
 
-- Astro 4 (static output) + Tailwind CSS 3 (`@astrojs/tailwind`, `applyBaseStyles: false`; base styles live in `src/styles/global.css`).
-- No UI framework — components are `.astro` files, client behaviour is plain TypeScript in `<script>` tags or `src/scripts/`.
+- Astro 5 (static output), plain scoped CSS — no Tailwind, no UI framework.
+- Components are `.astro` files; client behaviour is TypeScript modules in `src/scripts/`, imported from component `<script>` tags.
+- Images go through `astro:assets` (`<Image>`), so they are resized and converted at build time.
 - Deployed on Vercel from GitHub (push → auto deploy). Domain DNS is at GoDaddy.
 
 ## Commands
@@ -18,34 +19,32 @@ Marketing / investor site for NeuroFarm (neuromorphic edge AI for agriculture), 
 ```bash
 npm install
 npm run dev      # http://localhost:4321
-npm run build    # outputs to dist/
+npm run build    # astro check + static build to dist/
 npm run preview
 ```
 
 ## Structure
 
-- `src/pages/index.astro` — single-page site; composes the section components in order.
-- `src/components/*.astro` — one component per section (Hero, Problem, Solution, Technology, Market, Traction, Roadmap, Team, Contact) plus Navbar/Footer.
-- `src/layouts/Layout.astro` — `<head>`, meta/OG tags, fonts.
-- `src/styles/global.css` — design tokens, base styles, shared component classes.
-- `src/scripts/` — scroll reveal, counters, canvas effects.
+- `src/pages/index.astro` — single-page site; composes the sections in order.
+- `src/layouts/BaseLayout.astro` — `<head>`, meta/OG tags, fonts, skip link.
+- `src/data/site.ts` — **all copy-level facts** (specs, pipeline, stats, roadmap, team, contact). Change facts here, not in components.
+- `src/components/` — `layout/` (header, footer, logo), `ui/` (small shared pieces), `sections/` (one file per page section), `figures/` (the closed-loop canvas figure).
+- `src/scripts/` — `closed-loop/` (canvas animation), `nav-menu.ts`, `reveal.ts`, `contact-form.ts`.
+- `src/styles/` — `tokens.css` (colours, fonts, spacing), `global.css` (base + shared classes such as `.btn`, `.eyebrow`, `.h2`, `.panel`).
 
-## Investor "wow" criteria
+## Investor criteria
 
-Every change to the site is judged against these. A section that fails one of them is not done.
-
-1. **5-second hook** — above the fold an investor sees the category (neuromorphic edge AI for agriculture), the one-line promise and a live visual of the product idea (the `5 → 32 → 16 → 3` spiking network canvas). One primary CTA.
-2. **Show, don't claim** — prefer interactive or animated proof (code morph, scenario demo, spike raster) over adjectives.
-3. **Credibility density** — concrete, verifiable technical facts (architecture, params, MACs, pre-registration, test count, baselines) instead of vague superlatives. Any illustrative/simulated visual must be labelled as such.
-4. **Narrative arc** — Problem → Technology → Proof (demo + science) → Market → Traction/Roadmap → Team → Ask. Every section ends pointing forward.
-5. **Premium craft** — consistent dark "bioluminescent" palette, Geist / Geist Mono / Instrument Serif type system, 8px spacing rhythm, no template look, no emoji icons, no stock photos.
-6. **Performance & accessibility** — no heavy libraries, canvas animations pause off-screen, `prefers-reduced-motion` honoured, WCAG AA contrast, visible focus, keyboard-operable controls, no horizontal scroll at 375px.
-7. **Clear ask** — investor CTA in the nav, hero and a dedicated contact section with an async form and explicit success/error states.
+1. **5-second hook** — above the fold: category, one-line promise, the live closed-loop figure, one primary CTA.
+2. **Show, don't claim** — animated/interactive explanation over adjectives.
+3. **Credibility density** — concrete, verifiable technical facts. Every illustrative/simulated visual is labelled as such.
+4. **Narrative arc** — Problem → How it works → Rigour → Roadmap → Market → Team → Ask.
+5. **Craft** — "field instrument" look: soil-black ground, phosphor-lime (`--accent`) for neural activity, amber for actuators; Instrument Serif / Hanken Grotesk / JetBrains Mono. No emoji icons, no stock photos.
+6. **Performance & accessibility** — no heavy libraries, canvas pauses off-screen, `prefers-reduced-motion` honoured, WCAG AA contrast, visible focus, keyboard-operable controls, no horizontal scroll at 375px.
+7. **Clear ask** — investor CTA in the sticky header, hero and contact section; async form with explicit success/error states.
 
 ## Design conventions
 
-- Dark, premium deep-tech look. Colours come from the `nf` palette in `tailwind.config.mjs` — don't hardcode hex values in components.
-- Icons are inline SVG (no emoji icons).
-- Every animation must respect `prefers-reduced-motion`.
-- Content must be factual: numbers, partners and traction claims must come from the NeuroFarm source material (github.com/tunadeniz1304/Neurofarm1) — never invent metrics, customers or quotes.
-- Contact form posts to Formspree (`https://formspree.io/f/mjgapvpo`).
+- Colours come from CSS custom properties in `src/styles/tokens.css` — don't hardcode hex values in components (the canvas reads them via `getComputedStyle`).
+- Icons are inline SVG.
+- Content must be factual: numbers, partners and traction claims must come from the NeuroFarm source material — never invent metrics, customers, partners, logos or quotes. There are no measured performance results yet.
+- Contact form posts to Formspree (`https://formspree.io/f/mjgapvpo`) with fields `name`, `email`, `organisation`, `interest_type`, `message`.

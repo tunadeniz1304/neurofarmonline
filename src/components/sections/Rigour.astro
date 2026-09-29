@@ -1,0 +1,156 @@
+---
+import SectionHeading from '../ui/SectionHeading.astro';
+import { preRegistration, rigourStats } from '../../data/site';
+---
+
+<section class="section paper" id="rigour" aria-labelledby="rigour-title">
+  <div class="wrap stack" style="gap: 64px">
+    <div class="grid">
+      <div class="reveal">
+        <SectionHeading eyebrow="03 — Scientific rigour" id="rigour-title">
+          We wrote down what would count as success <em>before</em> running a single benchmark.
+          <p class="lede" slot="after">
+            Nine hypotheses were pre-registered in version control on 10 May 2026, before any benchmark data existed.
+            Every headline comparison is made against the controllers growers use today — and energy is measured on real
+            silicon, reported as honest ranges.
+          </p>
+        </SectionHeading>
+      </div>
+      <div class="record reveal">
+        <div class="record-head mono">
+          <span>Pre-registration</span>
+          <span class="sub">Committed to version control</span>
+        </div>
+        <dl>
+          {
+            preRegistration.map((row) => (
+              <div>
+                <dt>{row.label}</dt>
+                <dd>{row.value}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+    </div>
+
+    <dl class="stats reveal">
+      {
+        rigourStats.map((s) => (
+          <div>
+            <dt>{s.label}</dt>
+            <dd>{s.value}</dd>
+          </div>
+        ))
+      }
+    </dl>
+
+    <p class="caveat reveal">
+      <strong>What we don’t claim yet:</strong> there are no measured performance results. Water, energy or yield savings
+      will only appear here once they’ve been measured and tested against the pre-registered hypotheses.
+    </p>
+  </div>
+</section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: clamp(36px, 5vw, 72px);
+    align-items: start;
+  }
+  .record {
+    padding: clamp(20px, 2.5vw, 32px);
+    background: var(--paper-card);
+    border: 1px solid var(--paper-line);
+  }
+  .record-head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--ink);
+  }
+  .record-head .sub {
+    color: var(--ink-3);
+    font-size: 13px;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+  .record dl > div {
+    display: grid;
+    grid-template-columns: 150px minmax(0, 1fr);
+    gap: 16px;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--paper-rule);
+  }
+  .record dl > div:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+  .record dt {
+    color: var(--ink-3);
+  }
+  .record dd {
+    font-weight: 600;
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    border-top: 1px solid var(--ink);
+  }
+  .stats > div {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+    gap: 8px;
+    padding: 24px 20px 0 0;
+  }
+  .stats dd {
+    font-family: var(--serif);
+    font-size: clamp(42px, 4vw, 56px);
+    line-height: 1;
+  }
+  .stats dt {
+    font-size: 15px;
+    line-height: 1.45;
+    color: var(--ink-2);
+  }
+
+  .caveat {
+    padding: 18px 22px;
+    background: var(--paper-note);
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--ink);
+  }
+
+  @media (max-width: 1100px) {
+    .grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .stats {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .stats > div {
+      padding-bottom: 22px;
+    }
+  }
+  @media (max-width: 640px) {
+    .stats {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .stats dd {
+      font-size: 42px;
+    }
+    .record dl > div {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 2px;
+    }
+    .record dt {
+      font-size: 13px;
+    }
+  }
+</style>

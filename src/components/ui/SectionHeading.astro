@@ -1,0 +1,23 @@
+---
+/** Eyebrow + serif H2. The heading text goes in the default slot (may contain <em>). */
+interface Props {
+  eyebrow: string;
+  id: string;
+  maxWidth?: string;
+}
+const { eyebrow, id, maxWidth = '1000px' } = Astro.props;
+---
+
+<div class="heading" style={`max-width: ${maxWidth}`}>
+  <p class="eyebrow">{eyebrow}</p>
+  <h2 class="h2" id={id}><slot /></h2>
+  <slot name="after" />
+</div>
+
+<style>
+  .heading {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+</style>

@@ -1,0 +1,161 @@
+---
+import Logo from './Logo.astro';
+import { nav, site } from '../../data/site';
+---
+
+<header class="site-header" data-site-header>
+  <div class="wrap bar">
+    <a class="brand" href="#top" aria-label={`${site.name}, back to top`}>
+      <Logo />
+      <span>{site.name}</span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <ul class="links">
+        {nav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+      </ul>
+      <a class="btn btn-primary cta" href="#contact">
+        <span class="cta-long">Request the investor brief</span>
+        <span class="cta-short">Investor brief</span>
+      </a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu" data-menu-button>
+        <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true">
+          <path d="M2 5h16M2 10h16M2 15h16" stroke="currentColor" stroke-width="1.6" fill="none"></path>
+        </svg>
+      </button>
+    </nav>
+  </div>
+  <div class="mobile-menu" id="mobile-menu" data-open="false" data-menu>
+    <ul class="wrap">
+      {nav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<script>
+  import { initNavMenu } from '../../scripts/nav-menu';
+  initNavMenu();
+</script>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgb(12 15 11 / 0.94);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .bar {
+    height: var(--header);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 44px;
+    color: var(--text);
+    text-decoration: none;
+  }
+  .brand:hover {
+    color: var(--text);
+  }
+  .brand span {
+    font-family: var(--serif);
+    font-size: 30px;
+    line-height: 1;
+    letter-spacing: -0.01em;
+  }
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+  .links {
+    display: flex;
+    gap: 30px;
+  }
+  .links a {
+    display: inline-block;
+    padding: 12px 0;
+    color: var(--muted);
+    font-size: 15px;
+    text-decoration: none;
+  }
+  .links a:hover {
+    color: var(--text);
+  }
+  .cta {
+    min-height: 44px;
+    padding: 0 18px;
+    font-size: 15px;
+  }
+  .cta-short {
+    display: none;
+  }
+  .menu-btn {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: transparent;
+    border: 1px solid var(--line-2);
+    border-radius: 2px;
+    color: var(--text);
+    cursor: pointer;
+  }
+  .mobile-menu {
+    display: none;
+  }
+
+  @media (max-width: 1000px) {
+    .links {
+      display: none;
+    }
+    .menu-btn {
+      display: inline-flex;
+    }
+    .nav {
+      gap: 10px;
+    }
+    .mobile-menu[data-open='true'] {
+      display: block;
+      border-top: 1px solid var(--line);
+      background: var(--ground);
+    }
+    .mobile-menu ul {
+      padding-block: 8px 16px;
+    }
+    .mobile-menu a {
+      display: flex;
+      align-items: center;
+      min-height: 48px;
+      border-bottom: 1px solid var(--line);
+      color: var(--text);
+      font-size: 18px;
+      text-decoration: none;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .cta-long {
+      display: none;
+    }
+    .cta-short {
+      display: inline;
+    }
+    .brand span {
+      font-size: 26px;
+    }
+    .brand :global(svg) {
+      width: 24px;
+      height: 24px;
+    }
+  }
+</style>
