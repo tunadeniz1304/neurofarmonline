@@ -1,4 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" rx="6" fill="#1A5C38"/>
-  <text x="16" y="22" text-anchor="middle" font-family="Arial,sans-serif" font-weight="bold" font-size="18" fill="#A8E06C">N</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <rect width="32" height="32" rx="9" fill="#0F1E16"/>
+  <path d="M16 25V14" stroke="#3FD18A" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M16 17c-3.6 0-6-2.3-6-6 3.6 0 6 2.3 6 6Z" fill="#3FD18A"/>
+  <path d="M16 14.5c0-3.7 2.4-6.5 6-6.5 0 3.7-2.4 6.5-6 6.5Z" fill="#C4F36B"/>
+  <circle cx="16" cy="25" r="2.2" fill="#C4F36B"/>
+  <circle cx="9.5" cy="25" r="1.2" fill="#93A89A"/>
+  <circle cx="22.5" cy="25" r="1.2" fill="#93A89A"/>
 </svg>

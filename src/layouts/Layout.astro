@@ -8,7 +8,7 @@ interface Props {
 
 const {
   title = 'NeuroFarm — The Offline Brain for Agriculture',
-  description = 'NeuroFarm deploys neuromorphic edge AI processors directly at the crop level, enabling real-time autonomous decision-making with near-zero energy consumption.',
+  description = 'NeuroFarm replaces greenhouse rule-stacks with a single spiking neural network running on neuromorphic edge silicon — closed-loop crop control with no cloud, no thresholds and sub-watt power.',
 } = Astro.props;
 ---
 
@@ -18,16 +18,26 @@ const {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
+    <meta name="theme-color" content="#060D09" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://neurofarm.nl" />
     <meta name="twitter:card" content="summary_large_image" />
+    <link rel="canonical" href="https://neurofarm.nl" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap"
+    />
     <title>{title}</title>
   </head>
-  <body>
+  <body class="grain">
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:rounded-full focus:bg-nf-signal focus:px-4 focus:py-2 focus:text-nf-ink">
+      Skip to content
+    </a>
     <slot />
   </body>
 </html>
-
