@@ -3,49 +3,60 @@ const team = [
   {
     name: 'Tuna Deniz',
     role: 'Co-Founder & Technical Lead',
-    expertise: 'Spiking Neural Network (SNN) Architecture, Neuromorphic Hardware Integration, Edge Computing',
+    expertise: ['Spiking neural networks', 'Neuromorphic hardware', 'Reinforcement learning', 'Edge computing'],
     initials: 'TD',
     linkedin: 'https://linkedin.com/in/tuna-deniz1304',
   },
   {
     name: 'Cihan Ozturk',
     role: 'Co-Founder & Business Lead',
-    expertise: 'Strategy, Operations, and European Market Expansion',
+    expertise: ['Strategy', 'Operations', 'European market expansion'],
     initials: 'CO',
     linkedin: 'https://www.linkedin.com/in/cihanozturk0/',
   },
 ];
 ---
 
-<section id="team" class="py-20 md:py-28 bg-white">
-  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-16 reveal">
-      <span class="text-nf-accent font-mono text-sm font-medium tracking-wider uppercase">Leadership</span>
-      <h2 class="section-heading mt-3">The Founders</h2>
-      <p class="section-subheading mx-auto mt-4">
-        Combined expertise spanning silicon-level AI engineering to pan-European go-to-market strategy.
-      </p>
-    </div>
+<section id="team" class="section">
+  <div class="pointer-events-none absolute inset-x-0 top-0 h-px hairline" aria-hidden="true"></div>
+  <div class="page">
+    <div class="grid gap-12 lg:grid-cols-[1fr_1.3fr]">
+      <div data-reveal>
+        <span class="eyebrow">Founders</span>
+        <h2 class="h2 mt-6">Silicon-level AI, <span class="accent-serif">meets the market.</span></h2>
+        <p class="lede mt-6">
+          A founding team spanning neuromorphic engineering and pan-European go-to-market — based in Amsterdam,
+          hosted by the VU Demonstrator Lab.
+        </p>
+      </div>
 
-    <div class="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
-      {team.map((member, i) => (
-        <div class="reveal" style={`transition-delay: ${i * 150}ms`}>
-          <div class="p-8 rounded-2xl border border-gray-100 hover:shadow-xl transition-all duration-300 text-center group">
-            <!-- Avatar placeholder -->
-            <div class="w-24 h-24 rounded-full bg-nf-dark mx-auto mb-5 flex items-center justify-center group-hover:bg-nf-primary transition-colors">
-              <span class="text-nf-lime font-bold text-2xl">{member.initials}</span>
+      <div class="grid gap-3 sm:grid-cols-2">
+        {team.map((m, i) => (
+          <article class="card group flex flex-col p-7 transition-colors duration-300 hover:border-white/15" data-reveal style={`--d:${i * 100}ms`}>
+            <div class="relative h-16 w-16">
+              <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-nf-signal/30 to-nf-leaf/10 blur-md transition-opacity duration-300 group-hover:opacity-100 opacity-50"></div>
+              <div class="relative flex h-full w-full items-center justify-center rounded-2xl border border-white/10 bg-nf-surface font-mono text-lg text-nf-signal">
+                {m.initials}
+              </div>
             </div>
-
-            <h3 class="text-xl font-bold text-nf-text">{member.name}</h3>
-            <p class="text-nf-accent font-medium text-sm mt-1">{member.role}</p>
-            <p class="text-gray-500 text-sm mt-3 leading-relaxed">{member.expertise}</p>
-            <a href={member.linkedin} target="_blank" rel="noopener noreferrer" class="inline-flex items-center mt-4 text-nf-accent hover:text-nf-primary transition-colors text-sm font-medium">
-              <svg class="w-4 h-4 mr-1.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            <h3 class="mt-6 text-xl font-medium tracking-tight">{m.name}</h3>
+            <p class="mt-1 text-sm text-nf-signal">{m.role}</p>
+            <div class="mt-5 flex flex-wrap gap-1.5">
+              {m.expertise.map((e) => <span class="rounded-full border border-white/10 px-2.5 py-1 text-xs text-nf-muted">{e}</span>)}
+            </div>
+            <a
+              href={m.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="mt-auto inline-flex min-h-[44px] items-center gap-2 pt-6 text-sm text-nf-muted transition-colors hover:text-nf-text"
+            >
+              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
               LinkedIn
+              <span class="sr-only">profile of {m.name} (opens in new tab)</span>
             </a>
-          </div>
-        </div>
-      ))}
+          </article>
+        ))}
+      </div>
     </div>
   </div>
 </section>

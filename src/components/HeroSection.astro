@@ -1,62 +1,142 @@
 ---
-import HeroAnimation from './HeroAnimation.astro';
+const stats = [
+  { value: '5', label: 'sensor streams in' },
+  { value: '3', label: 'actuators out' },
+  { value: '1', label: 'SNN forward pass' },
+  { value: '0', label: 'cloud round-trips' },
+];
 ---
 
-<section id="hero" class="hero-bg relative min-h-screen flex flex-col items-center justify-center px-4 py-20">
-  <!-- Floating background particles -->
-  <div class="absolute inset-0 overflow-hidden pointer-events-none">
-    {Array.from({ length: 15 }).map((_, i) => (
-      <div
-        class="hero-particle"
-        style={`left: ${Math.random() * 100}%; top: ${Math.random() * 100}%; animation-delay: ${Math.random() * 6}s; animation-duration: ${4 + Math.random() * 4}s;`}
-      />
-    ))}
+<section id="hero" class="relative isolate overflow-hidden pb-16 pt-32 md:pb-24 md:pt-40">
+  <!-- Atmosphere -->
+  <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+    <div class="grid-bg absolute inset-0"></div>
+    <div class="aura aura-1"></div>
+    <div class="aura aura-2"></div>
+    <div class="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-nf-ink"></div>
   </div>
 
-  <!-- Hero Text -->
-  <div class="relative z-10 text-center mb-8 md:mb-12">
-    <h1 class="hero-text-enter text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight tracking-tight">
-      NEUROFARM
-    </h1>
-    <p class="hero-text-enter hero-text-enter-delay text-lg sm:text-xl md:text-2xl text-nf-lime font-medium mt-4 italic">
-      The Offline Brain for Agriculture
-    </p>
-    <p class="hero-text-enter hero-text-enter-delay-2 text-sm md:text-base text-gray-300 mt-4 max-w-xl mx-auto">
-      Neuromorphic edge AI processors at the crop level — real-time decisions, near-zero energy, fully offline.
-    </p>
+  <div class="page grid items-center gap-12 lg:grid-cols-[1.05fr_1fr] lg:gap-6">
+    <div>
+      <div class="hero-in flex flex-wrap items-center gap-2" style="--i:0">
+        <span class="chip !text-nf-text">
+          <span class="relative flex h-2 w-2">
+            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-nf-signal opacity-60"></span>
+            <span class="relative inline-flex h-2 w-2 rounded-full bg-nf-signal"></span>
+          </span>
+          VU Amsterdam Demonstrator Lab
+        </span>
+        <span class="chip">Neuromorphic · Edge AI · AgriTech</span>
+      </div>
+
+      <h1 class="display hero-in mt-7" style="--i:1">
+        <span class="glow-text">The offline brain</span><br />
+        <span class="accent-serif">for agriculture.</span>
+      </h1>
+
+      <p class="lede hero-in mt-7 max-w-xl" style="--i:2">
+        Today's greenhouses run on stacks of thresholds, timers and PID loops. NeuroFarm replaces them with a
+        <span class="text-nf-text">single spiking neural network</span> — trained by reinforcement learning, running on
+        neuromorphic silicon right next to the plant. No cloud. No if/else. Built for sub-watt power budgets.
+      </p>
+
+      <div class="hero-in mt-9 flex flex-col gap-3 sm:flex-row" style="--i:3">
+        <a href="#contact" class="btn-primary">
+          Request the investor brief
+          <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6 6 6-6 6" /></svg>
+        </a>
+        <a href="#technology" class="btn-ghost">See how it works</a>
+      </div>
+    </div>
+
+    <!-- Live network -->
+    <div class="hero-in relative" style="--i:2">
+      <div class="card overflow-hidden !rounded-[28px] p-1.5">
+        <div class="relative rounded-[22px] bg-gradient-to-b from-nf-deep to-nf-ink">
+          <div class="flex items-center justify-between border-b border-white/[0.06] px-5 py-3.5">
+            <div class="flex items-center gap-2 font-mono text-[0.68rem] uppercase tracking-[0.16em] text-nf-muted">
+              <span class="h-1.5 w-1.5 rounded-full bg-nf-leaf"></span>
+              <span>policy <span class="hidden sm:inline">· </span>5 → 32 → 16 → 3</span>
+            </div>
+            <span class="hidden font-mono text-[0.68rem] text-nf-dim sm:inline">akida · on-device</span>
+          </div>
+          <canvas id="snn-hero" class="block aspect-[5/4] w-full touch-none sm:aspect-[4/3]" aria-label="Animated visualisation of NeuroFarm's spiking neural network: five sensor inputs connected through two hidden layers to three actuator outputs." role="img"></canvas>
+          <div class="flex items-center justify-between border-t border-white/[0.06] px-5 py-3 font-mono text-[0.68rem] text-nf-dim">
+            <span>Sensors → spikes → actions</span>
+            <span class="hidden sm:inline">Move your cursor over the network</span>
+          </div>
+        </div>
+      </div>
+      <div class="pointer-events-none absolute -inset-10 -z-10 rounded-full bg-nf-signal/10 blur-3xl" aria-hidden="true"></div>
+    </div>
   </div>
 
-  <!-- Animation -->
-  <div class="relative z-10 w-full max-w-4xl mx-auto">
-    <HeroAnimation />
-  </div>
-
-  <!-- CTA -->
-  <div class="hero-text-enter hero-text-enter-delay-2 relative z-10 mt-8 flex flex-col sm:flex-row gap-4">
-    <a href="#solution" class="btn-primary">
-      Discover Our Technology
-      <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-      </svg>
-    </a>
-    <a href="#contact" class="btn-outline border-white/30 text-white hover:bg-white/10 hover:text-white">
-      Get in Touch
-    </a>
-  </div>
-
-  <!-- Scroll indicator -->
-  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce opacity-50">
-    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-    </svg>
+  <!-- Stat strip -->
+  <div class="page mt-16 md:mt-24">
+    <dl class="hero-in grid grid-cols-2 overflow-hidden rounded-2xl border border-white/[0.07] md:grid-cols-4" style="--i:4">
+      {stats.map((s, i) => (
+        <div class={`bg-white/[0.02] px-6 py-6 ${i % 2 === 1 ? 'border-l border-white/[0.07]' : ''} ${i >= 2 ? 'border-t border-white/[0.07] md:border-t-0' : ''} ${i === 2 ? 'md:border-l' : ''}`}>
+          <dt class="sr-only">{s.label}</dt>
+          <dd>
+            <div class="font-mono text-4xl font-medium tracking-tight text-nf-text md:text-5xl">{s.value}</div>
+            <div class="mt-1.5 text-sm text-nf-muted">{s.label}</div>
+          </dd>
+        </div>
+      ))}
+    </dl>
   </div>
 </section>
 
 <style>
-  @import '../styles/hero-animation.css';
+  .aura {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(90px);
+    opacity: 0.55;
+  }
+  .aura-1 {
+    width: 46rem;
+    height: 46rem;
+    right: -12rem;
+    top: -10rem;
+    background: radial-gradient(circle, rgba(63, 209, 138, 0.28), transparent 65%);
+    animation: drift 18s ease-in-out infinite alternate;
+  }
+  .aura-2 {
+    width: 36rem;
+    height: 36rem;
+    left: -14rem;
+    top: 16rem;
+    background: radial-gradient(circle, rgba(196, 243, 107, 0.14), transparent 65%);
+    animation: drift 22s ease-in-out infinite alternate-reverse;
+  }
+  @keyframes drift {
+    to {
+      transform: translate3d(-4rem, 3rem, 0) scale(1.1);
+    }
+  }
+  .hero-in {
+    opacity: 0;
+    transform: translateY(18px);
+    animation: hero-in 1s var(--ease-out) forwards;
+    animation-delay: calc(var(--i) * 110ms + 120ms);
+  }
+  @keyframes hero-in {
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-in {
+      opacity: 1;
+      transform: none;
+    }
+  }
 </style>
 
 <script>
-  import { initHeroCanvas } from '../scripts/hero-particles';
-  initHeroCanvas();
+  import { initSnnCanvas } from '../scripts/snn-canvas';
+  const canvas = document.getElementById('snn-hero') as HTMLCanvasElement | null;
+  if (canvas) initSnnCanvas(canvas);
 </script>

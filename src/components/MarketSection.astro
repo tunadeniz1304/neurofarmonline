@@ -1,70 +1,122 @@
 ---
 const markets = [
-  { segment: 'Precision Agriculture', value2024: 8.5, value2030: 19.2, cagr: '~14.5%', color: 'bg-nf-accent' },
-  { segment: 'Edge AI Hardware', value2024: 4.1, value2030: 24.7, cagr: '~35%', color: 'bg-nf-gold' },
-  { segment: 'Neuromorphic Computing', value2024: 0.5, value2030: 9.8, cagr: '~62%', color: 'bg-nf-lime' },
+  { segment: 'Precision agriculture', v24: 8.5, v30: 19.2, cagr: '~14.5%' },
+  { segment: 'Edge AI hardware', v24: 4.1, v30: 24.7, cagr: '~35%' },
+  { segment: 'Neuromorphic computing', v24: 0.5, v30: 9.8, cagr: '~62%' },
+];
+const max = 25;
+
+const path = [
+  { stage: 'Beachhead', title: 'Indoor & vertical farms', body: 'Controlled environments where water and energy per kilogram are measured — and paid for — every day.' },
+  { stage: 'Expand', title: 'Commercial greenhouses', body: 'A learned, offline controller alongside or in place of rule-based climate computers.' },
+  { stage: 'Scale', title: 'Open field', body: 'Autonomous nodes where connectivity is weakest and precision matters most.' },
 ];
 
 const drivers = [
-  'EU Green Deal mandates requiring measurable reductions in agricultural water, fertilizer, and energy use',
-  'Rising demand for food security solutions in climate-stressed, infrastructure-poor regions',
-  'Rapid cost reduction in neuromorphic and low-power edge AI hardware',
-  'Growing institutional interest in deep-tech AgriTech as a strategic priority',
+  'EU Green Deal pressure on agricultural water, fertiliser and energy use',
+  'Food security demand in climate-stressed, low-infrastructure regions',
+  'Rapidly falling cost of neuromorphic and low-power edge AI chips',
+  'Strategic institutional focus on deep-tech AgriTech in Europe',
 ];
 ---
 
-<section id="market" class="py-20 md:py-28 bg-white">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-16 reveal">
-      <span class="text-nf-accent font-mono text-sm font-medium tracking-wider uppercase">Opportunity</span>
-      <h2 class="section-heading mt-3">A Converging Market</h2>
-      <p class="section-subheading mx-auto mt-4">
-        Three high-growth markets driven by independent macro tailwinds: sustainable farming, edge AI, and neuromorphic computing.
+<section id="market" class="section">
+  <div class="pointer-events-none absolute inset-x-0 top-0 h-px hairline" aria-hidden="true"></div>
+  <div class="page">
+    <div class="max-w-3xl" data-reveal>
+      <span class="eyebrow">Opportunity</span>
+      <h2 class="h2 mt-6">Three markets, <span class="accent-serif">one intersection.</span></h2>
+      <p class="lede mt-6">
+        Sustainable farming, edge AI and neuromorphic computing are each growing on independent tailwinds.
+        NeuroFarm sits exactly where they meet.
       </p>
     </div>
 
-    <!-- Market bars -->
-    <div class="max-w-3xl mx-auto space-y-8 mb-16">
-      {markets.map((market, i) => (
-        <div class="reveal" style={`transition-delay: ${i * 150}ms`}>
-          <div class="flex items-center justify-between mb-2">
-            <span class="font-semibold text-nf-text">{market.segment}</span>
-            <span class="font-mono text-sm text-gray-500">CAGR {market.cagr}</span>
+    <div class="mt-16 grid gap-3 lg:grid-cols-[1.25fr_1fr]">
+      <!-- Chart -->
+      <div class="card p-7 md:p-9" data-reveal>
+        <div class="flex items-center justify-between">
+          <h3 class="font-mono text-[0.7rem] uppercase tracking-[0.16em] text-nf-dim">Global market size, USD bn</h3>
+          <div class="flex items-center gap-4 font-mono text-[0.68rem] text-nf-dim">
+            <span class="flex items-center gap-1.5"><span class="h-2 w-2 rounded-sm bg-white/25"></span>2024</span>
+            <span class="flex items-center gap-1.5"><span class="h-2 w-2 rounded-sm bg-nf-signal"></span>2030</span>
           </div>
-          <div class="relative h-12 bg-gray-100 rounded-lg overflow-hidden">
-            <!-- 2024 bar -->
-            <div
-              class={`absolute inset-y-0 left-0 ${market.color} opacity-30 rounded-lg transition-all duration-1000`}
-              style={`width: ${(market.value2024 / 25) * 100}%`}
-            ></div>
-            <!-- 2030 bar -->
-            <div
-              class={`absolute inset-y-0 left-0 ${market.color} rounded-lg transition-all duration-1000`}
-              style={`width: ${(market.value2030 / 25) * 100}%`}
-            ></div>
-            <!-- Labels -->
-            <div class="absolute inset-0 flex items-center justify-between px-4">
-              <span class="text-white font-mono font-bold text-sm z-10">${market.value2024}B (2024)</span>
-              <span class="text-white font-mono font-bold text-sm z-10">${market.value2030}B (2030)</span>
+        </div>
+
+        <div class="mt-10 space-y-9" id="market-bars">
+          {markets.map((m, i) => (
+            <div>
+              <div class="flex items-baseline justify-between gap-4">
+                <span class="text-nf-text">{m.segment}</span>
+                <span class="font-mono text-sm text-nf-signal">CAGR {m.cagr}</span>
+              </div>
+              <div class="relative mt-3 h-9">
+                <div class="mbar absolute inset-y-0 left-0 rounded-md bg-gradient-to-r from-nf-leaf/70 to-nf-signal" style={`--w:${(m.v30 / max) * 100}%; --d:${i * 150}ms`}></div>
+                <div class="mbar absolute inset-y-0 left-0 rounded-md bg-white/25" style={`--w:${(m.v24 / max) * 100}%; --d:${i * 150}ms`}></div>
+                <span class="absolute inset-y-0 left-0 flex items-center justify-end pr-3 font-mono text-sm font-medium text-nf-ink" style={`width:${(m.v30 / max) * 100}%`}>${m.v30}B</span>
+              </div>
+              <div class="mt-1.5 font-mono text-[0.7rem] text-nf-dim">${m.v24}B in 2024</div>
             </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Drivers -->
+      <div class="card p-7 md:p-9" data-reveal style="--d:100ms">
+        <h3 class="font-mono text-[0.7rem] uppercase tracking-[0.16em] text-nf-dim">Tailwinds</h3>
+        <ul class="mt-6 space-y-5">
+          {drivers.map((d, i) => (
+            <li class="flex gap-4">
+              <span class="font-mono text-xs text-nf-signal">0{i + 1}</span>
+              <span class="leading-relaxed text-nf-muted">{d}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Go-to-market path -->
+    <div class="mt-3 grid gap-3 md:grid-cols-3">
+      {path.map((p, i) => (
+        <div class="card relative p-7" data-reveal style={`--d:${i * 90}ms`}>
+          <div class="flex items-center gap-3">
+            <span class={`h-2 w-2 rounded-full ${i === 0 ? 'bg-nf-signal shadow-[0_0_12px_#C4F36B]' : 'bg-white/20'}`}></span>
+            <span class="font-mono text-[0.7rem] uppercase tracking-[0.16em] text-nf-dim">{p.stage}</span>
           </div>
+          <h3 class="mt-5 text-xl font-medium tracking-tight">{p.title}</h3>
+          <p class="mt-2 text-sm leading-relaxed text-nf-muted">{p.body}</p>
+          {i < path.length - 1 && (
+            <svg class="absolute -right-3 top-1/2 z-10 hidden h-6 w-6 -translate-y-1/2 text-nf-dim md:block" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m9 6 6 6-6 6" /></svg>
+          )}
         </div>
       ))}
     </div>
-
-    <!-- Key drivers -->
-    <div class="reveal max-w-3xl mx-auto">
-      <h3 class="text-lg font-bold text-nf-text mb-4">Key Market Drivers</h3>
-      <div class="grid sm:grid-cols-2 gap-3">
-        {drivers.map((driver) => (
-          <div class="flex items-start gap-3 p-3 rounded-lg bg-nf-neutral">
-            <svg class="w-5 h-5 text-nf-accent mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-            </svg>
-            <span class="text-sm text-gray-700">{driver}</span>
-          </div>
-        ))}
-      </div>
-    </div>
   </div>
 </section>
+
+<style>
+  .mbar {
+    width: var(--w);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 1.4s var(--ease-out) var(--d);
+  }
+  :global(#market-bars.is-in) .mbar {
+    transform: scaleX(1);
+  }
+</style>
+
+<script>
+  const el = document.getElementById('market-bars');
+  if (el) {
+    new IntersectionObserver(
+      ([entry], obs) => {
+        if (entry.isIntersecting) {
+          el.classList.add('is-in');
+          obs.disconnect();
+        }
+      },
+      { threshold: 0.4 },
+    ).observe(el);
+  }
+</script>
